@@ -27,7 +27,7 @@ jobs:
       - name: Bump version
         id: bump_version
         run: |
-          echo "version=$(poetry version ${{ github.event.inputs.version }})" >> $GITHUB_OUTPUT
+          echo "version=$(poetry version --short ${{ github.event.inputs.version }})" >> $GITHUB_OUTPUT
       - name: Update Changelog
         id: update_changelog
         run: |
