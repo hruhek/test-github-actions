@@ -31,13 +31,13 @@ jobs:
       - name: Update Changelog
         id: update_changelog
         run: |
-          sed -i "s/Unreleased/${{ steps.update_version.outputs.version }}/g" CHANGELOG.md
+          sed -i "s/Unreleased/${{ steps.bump_version.outputs.version }}/g" CHANGELOG.md
       - name: Create pull request
         id: create_pr
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: release/${{ steps.update_version.outputs.version }}
-          title: "Release: ${{ steps.update_version.outputs.version }} Pull Request"
+          branch: release/${{ steps.bump_version.outputs.version }}
+          title: "Release: ${{ steps.bump_version.outputs.version }} Pull Request"
           body: "This pull request contains the updated pyproject.toml with the new release version"
           base: main
