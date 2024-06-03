@@ -1,0 +1,19 @@
+name: Tag and Release
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.pull_request.title, "Release:")
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: ./.github/actions/setup-env
+      - name: Install dependencies
+        run: poetry install
+
