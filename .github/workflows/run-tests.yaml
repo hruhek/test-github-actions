@@ -5,9 +5,11 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - "main"
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - "main"
 
 permissions:
   contents: read
@@ -18,14 +20,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Install poetry
-      run: pipx install poetry
-    - uses: actions/setup-python@v5
-      with:
-        python-version: "3.12"
-        cache: "poetry"
-    - name: Install dependencies
-      run: poetry install
-    - name: Run tests
-      run: poetry run pytest -v
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: ./.github/actions/setup-env
+      - name: Install dependencies
+        run: poetry install
+      - name: Run tests
+        run: poetry run pytest -v
