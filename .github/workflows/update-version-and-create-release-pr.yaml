@@ -16,10 +16,7 @@ on:
           - preminor
           - prepatch
           - prerelease
-      prerelease_next_phase:
-        description: "Next phase of prerelease"
-        type: boolean
-        default: false
+          - next-phase
 
 jobs:
   setup:
@@ -32,11 +29,11 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Bump version
-        if: github.event.inputs.prerelease_next_phase
+        if: github.event.inputs.version != 'next-phase'
         run: |
           echo "VERSION=$(poetry version --short ${{ github.event.inputs.version }})" >> $GITHUB_ENV
       - name: Next phase
-        if: ${{ !github.event.inputs.prerelease_next_phase }}
+        if: github.event.inputs.prerelease_next_phase == 'next-phase'
         run: |
           echo "VERSION=$(poetry version --short prerelease --next-phase)" >> $GITHUB_ENV
       - name: Create pull request
