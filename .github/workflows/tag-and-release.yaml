@@ -16,6 +16,10 @@ jobs:
         uses: ./.github/actions/setup-env
       - name: Install dependencies
         run: poetry install
+      - name: Setup Git
+        run: |
+          git config user.name "hruhek"
+          git config user.email "hrvoje.ruhek@wearenotch.com"
       - name: Get tag
         id: get_tag
         run: |
