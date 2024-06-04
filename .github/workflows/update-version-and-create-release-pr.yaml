@@ -32,11 +32,11 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Bump version
-        if: github.event.inputs.prerelease_next_phase == false
+        if: ${{ !github.event.inputs.prerelease_next_phase }}
         run: |
           echo "VERSION=$(poetry version --short ${{ github.event.inputs.version }})" >> $GITHUB_ENV
-      - name: next_phase
-        if: github.event.inputs.prerelease_next_phase == true
+      - name: Next phase
+        if: ${{ github.event.inputs.prerelease_next_phase }}
         run: |
           echo "VERSION=$(poetry version --short prerelease --next-phase)" >> $GITHUB_ENV
       - name: Create pull request
