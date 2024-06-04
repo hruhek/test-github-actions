@@ -16,4 +16,14 @@ jobs:
         uses: ./.github/actions/setup-env
       - name: Install dependencies
         run: poetry install
-
+      - name: Get tag
+        id: get_tag
+        run: |
+          git branch --show-current
+          git pull
+          echo "version=v$(poetry version --short)" >> $GITHUB_OUTPUT
+      - name: Tag the commit
+        run: |
+          new_version=${{ steps.get_tag.output.version }}
+          git tag -a "$new_version" -m "Version $new_version"
+          git push --follow-tags
