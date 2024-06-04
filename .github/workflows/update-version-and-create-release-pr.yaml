@@ -36,7 +36,7 @@ jobs:
         run: |
           echo "VERSION=$(poetry version --short ${{ github.event.inputs.version }})" >> $GITHUB_ENV
       - name: Next phase
-        if: ${{ ! github.event.inputs.prerelease_next_phase }}
+        if: ${{ !github.event.inputs.prerelease_next_phase }}
         run: |
           echo "VERSION=$(poetry version --short prerelease --next-phase)" >> $GITHUB_ENV
       - name: Create pull request
