@@ -12,10 +12,17 @@ on:
           - major
           - minor
           - patch
+          - premajor
+          - preminor
+          - prepatch
           - prerelease
+      prerelease_next_phase:
+        description: "Next phase of prerelease"
+        type: boolean
+        default: false
 
 jobs:
-  version:
+  setup:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -25,19 +32,18 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Bump version
-        id: bump_version
+        if: ${{ github.event.inputs.prerelease_next_phase == false }}
         run: |
-          echo "version=$(poetry version --short ${{ github.event.inputs.version }})" >> $GITHUB_OUTPUT
-      - name: Update Changelog
-        id: update_changelog
+          echo "VERSION=$(poetry version --short ${{ github.event.inputs.version }})" >> $GITHUB_ENV
+      - name: next_phase
+        if: ${{ github.event.inputs.prerelease_next_phase == true }}
         run: |
-          sed -i "s/Unreleased/${{ steps.bump_version.outputs.version }}/g" CHANGELOG.md
+          echo "VERSION=$(poetry version --short prerelease --next-phase)" >> $GITHUB_ENV
       - name: Create pull request
-        id: create_pr
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: release/${{ steps.bump_version.outputs.version }}
-          title: "Release: ${{ steps.bump_version.outputs.version }} Pull Request"
-          body: "This pull request contains the updated pyproject.toml with the new release version"
+          branch: release/${{ env.VERSION }}
+          title: "Release: ${{ env.VERSION }} Pull Request"
+          body: "This pull request contains the updated `pyproject.toml` with the new release version. Add release notes."
           base: main
