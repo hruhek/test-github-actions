@@ -19,3 +19,5 @@ jobs:
         run: echo "version=$(poetry version --short)" >> $GITHUB_OUTPUT
       - name: test version
         run: echo ${{ steps.new_tag.outputs.version }}
+      - name: test tag
+        run: echo ${{ GITHUB_REF }}
