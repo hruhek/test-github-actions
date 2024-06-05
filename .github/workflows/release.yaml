@@ -20,4 +20,4 @@ jobs:
       - name: test version
         run: echo ${{ steps.new_tag.outputs.version }}
       - name: test tag
-        run: echo ${{ GITHUB_REF }}
+        run: echo ${{ github.ref_name }}
