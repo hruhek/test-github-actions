@@ -12,10 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Set up Python
+      - name: Set up environment
         uses: ./.github/actions/setup-env
-      - name: Install dependencies
-        run: poetry install
       - name: Get the new tag
         run: |
           echo "VERSION=$(poetry version --short)" >> $GITHUB_ENV

@@ -1,4 +1,4 @@
-name: Update version and create Release's PR
+name: Create Release PR
 
 on:
   workflow_dispatch:
@@ -29,10 +29,8 @@ jobs:
             exit 1
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Set up Python
+      - name: Set up environment
         uses: ./.github/actions/setup-env
-      - name: Install dependencies
-        run: poetry install
       - name: Bump version
         if: github.event.inputs.version != 'next-phase'
         run: |
@@ -46,6 +44,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: release/${{ env.VERSION }}
+          delete-branch: true
           title: "Release: ${{ env.VERSION }} Pull Request"
           body: "This pull request contains the updated `pyproject.toml` with the new release version. Add release notes."
           base: main
