@@ -14,15 +14,11 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up environment
         uses: ./.github/actions/setup-env
-      - name: Get the new tag
-        id: current_tag
+      - name: Get the version from pyproject.toml
+        id: pyproject
         run: echo "version=$(poetry version --short)" >> $GITHUB_OUTPUT
-      - name: test version
-        run: echo ${{ steps.current_tag.outputs.version }}
-      - name: test tag
-        run: echo ${{ github.ref_name }}
-      - name: Fail if project version is different from tag
-        if: github.ref_name != format('v{0}', steps.current_tag.outputs.version)
+      - name: Fail if pyproject.toml version is different from tag
+        if: github.ref_name != format('v{0}', steps.pyproject.outputs.version)
         run: |
           echo "pyproject.toml version and tag mismatch"
           exit 1
