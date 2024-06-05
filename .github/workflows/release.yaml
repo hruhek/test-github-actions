@@ -22,7 +22,7 @@ jobs:
       - name: test tag
         run: echo ${{ github.ref_name }}
       - name: Fail if project version is different from tag
-        if: !contains(github.ref_name, steps.current_tag.outputs.version)
+        if: github.ref_name != format('v{0}', steps.current_tag.outputs.version)
         run: |
           echo "pyproject.toml version and tag mismatch"
           exit 1
