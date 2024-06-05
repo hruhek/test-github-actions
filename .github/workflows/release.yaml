@@ -3,7 +3,8 @@ name: Release
 on:
   push:
     tags:
-      - "v([0-9]+.[0-9]+.[0-9]+)(?:(?:(a|b|c|rc))(?:[0-9]+))?$"
+      - "WINSEC-INGEST-v*"
+      - "WINSEC-API-v*"
 
 jobs:
   setup:
