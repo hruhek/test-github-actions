@@ -15,3 +15,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up environment
         uses: ./.github/actions/setup-env
+      - name: Get the new tag
+        id: new_tag
+        run: echo "version=$(poetry version --short)" >> $GITHUB_OUTPUT
+      - name: test version
+        run: echo ${{ steps.new_tag.outputs.version }}
