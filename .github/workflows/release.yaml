@@ -14,7 +14,7 @@ jobs:
       - name: Set up environment
         uses: ./.github/actions/setup-env
       - name: Check project version
-        run: make check_tag_version
+        run: make TAG=${{ github.ref_name }} check_tag_version
       - name: build wheel
         run: poetry build --format wheel
       - name: Create a GitHub release
