@@ -16,6 +16,7 @@ requests = "^2.32.3"
 [tool.poetry.group.test.dependencies]
 pytest = "^8.2.1"
 requests-mock = "^1.12.1"
+coverage = "^7.5.3"
 
 
 [tool.poetry.group.dev.dependencies]

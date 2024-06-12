@@ -14,4 +14,4 @@ jobs:
       - name: Set up environment
         uses: ./.github/actions/setup-env
       - name: Run tests
-        run: poetry run pytest -v
+        run: make test
