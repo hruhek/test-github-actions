@@ -1,5 +1,5 @@
-TAG ?= WINSEC-INGEST-v0.0.0
-VERSION = WINSEC-INGEST-v$(shell poetry version --short)
+TAG ?= v0.0.0
+VERSION = v$(shell poetry version --short)
 
 .PHONY: help
 help:
