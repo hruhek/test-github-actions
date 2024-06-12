@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "test-github-actions"
-version = "1.0.5b0"
+version = "1.0.5b1"
 description = "testing github actions"
 authors = ["Hrvoje Ruhek <hrvoje.ruhek@wearenotch.com>"]
 readme = "README.md"
